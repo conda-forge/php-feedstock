@@ -1,5 +1,5 @@
 {% set name = "php" %}
-{% set version = "7.3.28" %}
+{% set version = "7.4.20" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://www.php.net/distributions/{{ name }}-{{ version }}.tar.gz
-  sha256: 1f0d9b94e1b11518ffabd19b646c2fee95ea42ca9cd8d337f8d07986fdceede1
+  sha256: 84b09e4617e960b36dfa15fdbf2e3cd7141a2e877216ea29391b12ae86963cf4
   patches:
     - 0001-DOMDocument_loadXML_error1-recent-libxml2.patch
     - 0002-DOMDocument_load_error1-recent-libxml2.patch
@@ -19,7 +19,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [not linux]
+  skip: true  # [not linux]
 
 requirements:
   build:
@@ -47,7 +47,7 @@ about:
   license: PHP-3.01
   license_family: OTHER
   license_file: LICENSE
-  summary: 'PHP is a popular general-purpose scripting language that is especially suited to web development.'
+  summary: PHP is a popular general-purpose scripting language that is especially suited to web development.
   description: |
     PHP is a popular general-purpose scripting language that is especially suited to web development. 
     Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world. 
