@@ -1,4 +1,4 @@
 conda_forge_output_validation: true
 bot:
   abi_migration_branches:
-    - "7.3.x"
+  - 7.3.x
