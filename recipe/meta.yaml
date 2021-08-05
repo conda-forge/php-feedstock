@@ -9,10 +9,6 @@ source:
   url: https://www.php.net/distributions/{{ name }}-{{ version }}.tar.gz
   sha256: 1f0d72e90ab6ad0ae13329a96b281f71bc592563ce4e3a4c816b8da4b5854fb4
   patches:
-    - 0001-DOMDocument_loadXML_error1-recent-libxml2.patch
-    - 0002-DOMDocument_load_error1-recent-libxml2.patch
-    - 0003-bug43364.phpt-libxml2-update.patch
-    - 0004-bug80268.phpt-libxml2-update.patch
     - 0005-iconv_basic_001.phpt-iconv-update.patch
     - 0006-bug61367-read.phpt-libxml2-update.patch
     - 0007-libxml_disable_entity_loader.phpt-libxml2-update.patch
