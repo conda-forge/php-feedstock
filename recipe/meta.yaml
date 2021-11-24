@@ -15,6 +15,7 @@ source:
 
 build:
   number: 0
+  skip: true  # avoid build at initial 8.0.x push
   skip: true  # [not linux]
 
 requirements:
