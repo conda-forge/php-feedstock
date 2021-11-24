@@ -1,5 +1,5 @@
 {% set name = "php" %}
-{% set version = "7.3.31" %}
+{% set version = "7.3.32" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://www.php.net/distributions/{{ name }}-{{ version }}.tar.gz
-  sha256: 57ca37b08d3eed4cadc3976e78b0f51d0305bb6e60333f6e8c76e8aee07c3f0f
+  sha256: 4739160cbd8f5d4529429ac01e181cba9705a515666002e76e4e34891c034fcb 
   patches:
     - 0001-DOMDocument_loadXML_error1-recent-libxml2.patch
     - 0002-DOMDocument_load_error1-recent-libxml2.patch
@@ -33,7 +33,7 @@ requirements:
   host:
     - libiconv
     - libxml2
-    - openssl
+    - openssl <3
     - re2c
     - sqlite
 
