@@ -14,8 +14,7 @@ source:
     - 0007-libxml_disable_entity_loader.phpt-libxml2-update.patch
 
 build:
-  number: 0
-  skip: true  # avoid build at initial 8.0.x push
+  number: 1
   skip: true  # [not linux]
 
 requirements:
@@ -30,7 +29,7 @@ requirements:
   host:
     - libiconv
     - libxml2
-    - openssl
+    - openssl <3
     - re2c
     - sqlite
 
