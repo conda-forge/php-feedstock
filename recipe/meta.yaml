@@ -32,6 +32,7 @@ requirements:
     - openssl
     - re2c
     - sqlite
+    - pcre2
 
 test:
   commands:
