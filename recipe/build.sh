@@ -14,6 +14,11 @@ rm ext/standard/tests/network/bug73594.phpt
 
 make -j${CPU_COUNT}
 
-bash -c "NO_INTERACTION=1; make test"
+export NO_INTERACTION=1
+if [[ "${target_platform}" == "linux-"* ]]; then
+    script -ec "make test"
+else
+    script "make test"
+fi
 
 make install
