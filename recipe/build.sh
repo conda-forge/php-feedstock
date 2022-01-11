@@ -14,8 +14,6 @@ rm ext/standard/tests/network/bug73594.phpt
 
 make -j${CPU_COUNT}
 
-export NO_INTERACTION=1
-
-make test
+bash -c "NO_INTERACTION=1; make test"
 
 make install
