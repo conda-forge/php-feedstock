@@ -18,7 +18,8 @@ export NO_INTERACTION=1
 if [[ "${target_platform}" == "linux-"* ]]; then
     script -ec "make test"
 else
-    script "make test"
+    export SKIP_IO_CAPTURE_TESTS=1
+    make test
 fi
 
 make install
