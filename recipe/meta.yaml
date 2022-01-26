@@ -9,6 +9,7 @@ source:
   url: https://www.php.net/distributions/{{ name }}-{{ version }}.tar.gz
   sha256: 564fd5bc9850370db0cb4058d9087f2f40177fa4921ce698a375416db9ab43ca 
   patches:
+    - 0001-remove-test-depending-on-expired-certificate.patch
     - 0005-iconv_basic_001.phpt-iconv-update.patch
     - 0006-bug61367-read.phpt-libxml2-update.patch
     - 0007-libxml_disable_entity_loader.phpt-libxml2-update.patch
