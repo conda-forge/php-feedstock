@@ -1,5 +1,5 @@
 {% set name = "php" %}
-{% set version = "8.0.13" %}
+{% set version = "8.0.14" %}
 
 package:
   name: {{ name }}
@@ -7,14 +7,15 @@ package:
 
 source:
   url: https://www.php.net/distributions/{{ name }}-{{ version }}.tar.gz
-  sha256: b4c2d27c954e1b0d84fd4bfef4d252e154ba479e7db11abd89358f2164ee7cc8
+  sha256: e67ebd8c4c77247ad1fa88829e5b95d51a19edf3d87814434de261e20a63ea20
   patches:
+    - 0001-remove-test-depending-on-expired-certificate.patch
     - 0005-iconv_basic_001.phpt-iconv-update.patch
     - 0006-bug61367-read.phpt-libxml2-update.patch
     - 0007-libxml_disable_entity_loader.phpt-libxml2-update.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [not linux]
 
 requirements:
