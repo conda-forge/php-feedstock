@@ -1,5 +1,5 @@
 {% set name = "php" %}
-{% set version = "7.4.26" %}
+{% set version = "7.4.27" %}
 
 package:
   name: {{ name }}
@@ -7,8 +7,9 @@ package:
 
 source:
   url: https://www.php.net/distributions/{{ name }}-{{ version }}.tar.gz
-  sha256: 890a7e730f96708a68a77b19fd57fec33cc81573f7249111c870edac42b91a72 
+  sha256: 564fd5bc9850370db0cb4058d9087f2f40177fa4921ce698a375416db9ab43ca 
   patches:
+    - 0001-remove-test-depending-on-expired-certificate.patch
     - 0005-iconv_basic_001.phpt-iconv-update.patch
     - 0006-bug61367-read.phpt-libxml2-update.patch
     - 0007-libxml_disable_entity_loader.phpt-libxml2-update.patch
@@ -26,6 +27,7 @@ requirements:
     - libtool
     - pkg-config
     - util-linux
+    - openssl <3
   host:
     - libiconv
     - libxml2
