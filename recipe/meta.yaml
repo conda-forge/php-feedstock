@@ -1,5 +1,5 @@
 {% set name = "php" %}
-{% set version = "8.1.4" %}
+{% set version = "8.1.5" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://www.php.net/distributions/{{ name }}-{{ version }}.tar.gz
-  sha256: a9951c1c8fd5d2eefde28de0f646c344eb61d751319d220713a6da26f986abde
+  sha256: 44d637627746082395d5d3d3d6ae7d71e780b82a8d55a0228887158c4316bf11
   patches:
     - 0005-iconv_basic_001.phpt-iconv-update.patch
     - 0006-bug61367-read.phpt-libxml2-update.patch
