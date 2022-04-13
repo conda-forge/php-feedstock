@@ -1,0 +1,31 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
+c_compiler:
+- clang
+c_compiler_version:
+- '12'
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+libiconv:
+- '1.16'
+libxml2:
+- '2.9'
+macos_machine:
+- arm64-apple-darwin20.0.0
+openssl:
+- 1.1.1
+pcre2:
+- '10.37'
+pin_run_as_build:
+  libiconv:
+    max_pin: x.x
+  libxml2:
+    max_pin: x.x
+  sqlite:
+    max_pin: x
+sqlite:
+- '3'
+target_platform:
+- osx-arm64
