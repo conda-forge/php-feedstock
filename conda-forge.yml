@@ -3,6 +3,8 @@ bot:
   - 7.3.x
   - 7.4.x
   - 8.0.x
+build_platform:
+  osx_arm64: osx_64
 conda_forge_output_validation: true
 github:
   branch_name: main
@@ -10,3 +12,4 @@ github:
 provider:
   linux_aarch64: default
   linux_ppc64le: default
+test_on_native_only: true
