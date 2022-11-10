@@ -11,20 +11,13 @@ channel_targets:
 docker_image:
 - quay.io/condaforge/linux-anvil-ppc64le
 libiconv:
-- '1.16'
+- '1'
 libxml2:
-- '2.9'
+- '2.10'
 openssl:
 - 1.1.1
 pcre2:
-- '10.37'
-pin_run_as_build:
-  libiconv:
-    max_pin: x.x
-  libxml2:
-    max_pin: x.x
-  sqlite:
-    max_pin: x
+- '10.40'
 sqlite:
 - '3'
 target_platform:
