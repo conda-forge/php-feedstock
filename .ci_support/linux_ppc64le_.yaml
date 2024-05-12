@@ -1,11 +1,7 @@
-BUILD:
-- aarch64-conda_cos7-linux-gnu
 c_compiler:
 - gcc
 c_compiler_version:
-- '10'
-cdt_arch:
-- aarch64
+- '12'
 cdt_name:
 - cos7
 channel_sources:
@@ -13,11 +9,11 @@ channel_sources:
 channel_targets:
 - conda-forge main
 docker_image:
-- quay.io/condaforge/linux-anvil-aarch64
+- quay.io/condaforge/linux-anvil-ppc64le
 libiconv:
 - '1'
 libxml2:
-- '2.10'
+- '2.12'
 openssl:
 - '3'
 pcre2:
@@ -25,4 +21,4 @@ pcre2:
 sqlite:
 - '3'
 target_platform:
-- linux-aarch64
+- linux-ppc64le
