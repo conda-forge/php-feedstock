@@ -1,0 +1,20 @@
+c_compiler:
+- gcc
+c_compiler_version:
+- '10'
+cdt_name:
+- cos7
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+docker_image:
+- quay.io/condaforge/linux-anvil-ppc64le
+libiconv:
+- '1'
+libxml2:
+- '2.10'
+sqlite:
+- '3'
+target_platform:
+- linux-ppc64le
