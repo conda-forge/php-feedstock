@@ -30,11 +30,11 @@ requirements:
   host:
     - libiconv
     - libxcrypt
-    - libxml2
+    - libxml2 <2.11a0
     - openssl
     - re2c
     - sqlite
-    - pcre2
+    - pcre2 <10.44a0
 
 test:
   commands:
