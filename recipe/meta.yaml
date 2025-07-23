@@ -19,7 +19,8 @@ build:
 
 requirements:
   build:
-    - {{ compiler('c') }}
+    - {{ compiler("c") }}
+    - {{ stdlib("c") }}
     - make
     - autoconf
     - bison
@@ -49,7 +50,7 @@ about:
     PHP is a popular general-purpose scripting language that is especially suited to web development. 
     Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world. 
     PHP is distributed under the PHP License v3.01.
-  doc_url: https://www.php.net/
+  doc_url: https://www.php.net
   dev_url: https://github.com/php/php-src
 
 extra:
