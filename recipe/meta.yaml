@@ -28,8 +28,8 @@ requirements:
     - pkg-config
     - util-linux  # [linux]
   host:
-    - libcrypt
     - libiconv
+    - libxcrypt
     - libxml2
     - openssl
     - re2c
