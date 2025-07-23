@@ -16,14 +16,10 @@ channel_targets:
 - conda-forge main
 libiconv:
 - '1'
-libxml2:
-- '2.13'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 openssl:
 - '3'
-pcre2:
-- '10.45'
 sqlite:
 - '3'
 target_platform:
