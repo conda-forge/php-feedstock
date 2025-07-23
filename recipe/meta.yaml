@@ -25,6 +25,7 @@ requirements:
     - autoconf
     - bison
     - libtool
+    - lua
     - pkg-config
     - util-linux  # [linux]
   host:
