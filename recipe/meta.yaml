@@ -31,7 +31,7 @@ requirements:
     - libiconv
     - libxcrypt
     - libxml2 <2.11a0
-    - openssl
+    - openssl >=1,<2
     - re2c
     - sqlite
     - pcre2 <10.44a0
