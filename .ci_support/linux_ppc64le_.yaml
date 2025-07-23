@@ -16,8 +16,6 @@ docker_image:
 - quay.io/condaforge/linux-anvil-ppc64le:alma9
 libiconv:
 - '1'
-lua:
-- '5'
 openssl:
 - '3'
 sqlite:
