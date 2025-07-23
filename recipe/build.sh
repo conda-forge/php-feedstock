@@ -2,6 +2,12 @@
 
 set -ex
 
+export ac_cv_header_sys_ipc_h=yes
+export ac_cv_header_sys_shm_h=yes
+export ac_cv_func_shm_open=yes
+export ac_cv_func_shm_unlink=yes
+export ac_cv_func_mmap_anon=yes
+
 # remove test failing in non interactive shell
 rm ext/standard/tests/file/lstat_stat_variation10.phpt
 rm ext/standard/tests/network/bug73594.phpt
