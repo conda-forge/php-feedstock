@@ -38,8 +38,8 @@ if [[ "${target_platform}" == "linux-"* ]]; then
     script -ec "make test"
 elif [[ "${target_platform}" == "osx-"* ]]; then
     export SKIP_IO_CAPTURE_TESTS=1
-    echo "ext/standard/tests/general_functions/proc_nice_basic.phpt" >> sapi/cli/tests/php_skiplist
-    make test
+    make test \
+      SCRIPT_ARGS="--skip ext/standard/tests/general_functions/proc_nice_basic.phpt"
 fi
 
 make install
