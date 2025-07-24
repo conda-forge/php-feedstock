@@ -39,7 +39,7 @@ if [[ "${target_platform}" == "linux-"* ]]; then
 elif [[ "${target_platform}" == "osx-"* ]]; then
     export SKIP_IO_CAPTURE_TESTS=1
     make test \
-      SCRIPT_ARGS="--skip ext/standard/tests/general_functions/proc_nice_basic.phpt"
+        TESTS="--exclude ext/standard/tests/general_functions/proc_nice_basic.phpt"
 fi
 
 make install
