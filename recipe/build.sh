@@ -12,18 +12,24 @@ if [[ "$CI" == "travis" ]]; then
     export TRAVIS="true"
 fi
 
-if [[ "${target_platform}" == linux-* ]]; then
+if [[ "${target_platform}" == "linux-"* ]]; then
     OPCACHE_FLAG="--enable-opcache"
-else
+elif [[ "${target_platform}" == "osx-"* ]]; then
     OPCACHE_FLAG="--disable-opcache"
 fi
+
+if [[ "${build_platform}" == "${target_platform}" ]]; then
+    PHAR_FLAG="--disable-phar"
+fi
+
 
 ./configure --prefix="${PREFIX}" \
             --with-iconv="${PREFIX}" \
             --with-openssl="${PREFIX}" \
             --with-libxml-dir="${PREFIX}" \
             --with-external-pcre \
-            ${OPCACHE_FLAG}
+            "${OPCACHE_FLAG}" \
+            "${PHAR_FLAG}"
 
 make -j"${CPU_COUNT}"
 
