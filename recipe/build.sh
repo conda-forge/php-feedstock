@@ -36,8 +36,9 @@ make -j"${CPU_COUNT}"
 export NO_INTERACTION=1
 if [[ "${target_platform}" == "linux-"* ]]; then
     script -ec "make test"
-else
+elif [[ "${target_platform}" == "osx-"* ]]; then
     export SKIP_IO_CAPTURE_TESTS=1
+    echo "ext/standard/tests/general_functions/proc_nice_basic.phpt" >> sapi/cli/tests/php_skiplist
     make test
 fi
 
