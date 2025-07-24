@@ -33,7 +33,7 @@ requirements:
     - libxml2 <2.11a0
     - openssl >=1,<2
     - re2c
-    - sqlite
+    - sqlite >=3.7,<3.38
     - pcre2 <10.44a0
 
 test:
