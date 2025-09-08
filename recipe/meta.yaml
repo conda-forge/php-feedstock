@@ -14,12 +14,13 @@ source:
     - 0007-libxml_disable_entity_loader.phpt-libxml2-update.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not unix]
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - make
     - autoconf
     - bison
@@ -28,7 +29,7 @@ requirements:
     - util-linux  # [linux]
   host:
     - libiconv
-    - libxml2
+    - libxml2-devel
     - openssl
     - re2c
     - sqlite
