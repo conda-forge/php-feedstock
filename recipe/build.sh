@@ -17,7 +17,7 @@ fi
             --with-openssl=${PREFIX} \
             --with-libxml-dir=${PREFIX} \
             --with-external-pcre \
-            OPCACHE_FLAG
+            ${OPCACHE_FLAG}
 
 make -j${CPU_COUNT}
 
