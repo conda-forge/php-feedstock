@@ -14,12 +14,13 @@ source:
     - 0007-libxml_disable_entity_loader.phpt-libxml2-update.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not unix]
 
 requirements:
   build:
-    - {{ compiler('c') }}
+    - {{ compiler("c") }}
+    - {{ stdlib("c") }}
     - make
     - autoconf
     - bison
@@ -28,11 +29,12 @@ requirements:
     - util-linux  # [linux]
   host:
     - libiconv
-    - libxml2
-    - openssl
+    - libxcrypt
+    - libxml2 <2.11a0
+    - openssl >=1,<2
     - re2c
-    - sqlite
-    - pcre2
+    - sqlite <3.38.0a0
+    - pcre2 <10.44a0
 
 test:
   commands:
@@ -49,7 +51,7 @@ about:
     PHP is a popular general-purpose scripting language that is especially suited to web development. 
     Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world. 
     PHP is distributed under the PHP License v3.01.
-  doc_url: https://www.php.net/
+  doc_url: https://www.php.net
   dev_url: https://github.com/php/php-src
 
 extra:
