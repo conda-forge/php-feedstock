@@ -3,6 +3,10 @@ setlocal enabledelayedexpansion
 
 cd /d "%SRC_DIR%"
 
+rem Create phpsdk_version shim to satisfy PHP's SDK version check
+echo @echo PHP SDK 2.3.0 > "%SRC_DIR%\phpsdk_version.bat"
+set "PATH=%SRC_DIR%;%PATH%"
+
 call buildconf.bat --force
 if errorlevel 1 exit /b 1
 

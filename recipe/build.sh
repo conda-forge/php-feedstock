@@ -23,7 +23,7 @@ fi
             ${PHP_BUILD_HOST:+--build=$PHP_BUILD_HOST --host=$PHP_BUILD_HOST} \
             --with-iconv=$PREFIX \
             --with-openssl=$PREFIX \
-            --with-external-pcre2=$PREFIX \
+            --with-external-pcre \
             --with-bz2=$PREFIX \
             --with-curl=$PREFIX \
             --with-gmp=$PREFIX \
