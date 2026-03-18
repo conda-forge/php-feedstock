@@ -5,8 +5,8 @@ set -ex
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
 
 # PHP's configure uses aarch64, but conda sets arm64 on macOS
-if [[ "$(uname -s)" == "Darwin" && "$(uname -m)" == "arm64" ]]; then
-    export PHP_BUILD_HOST="aarch64-apple-darwin$(uname -r)"
+if [[ "${target_platform}" == "osx-arm64" ]]; then
+    export PHP_BUILD_HOST="aarch64-apple-darwin20.0.0"
 fi
 
 # remove test failing in non interactive shell
@@ -50,12 +50,15 @@ fi
 
 make -j${CPU_COUNT}
 
-export NO_INTERACTION=1
-if [[ "${target_platform}" == "linux-"* ]]; then
-    script -ec "make test"
-else
-    export SKIP_IO_CAPTURE_TESTS=1
-    make test
+# Skip tests when cross-compiling (can't run target binaries on build machine)
+if [[ "${build_platform}" == "${target_platform}" ]]; then
+    export NO_INTERACTION=1
+    if [[ "${target_platform}" == "linux-"* ]]; then
+        script -ec "make test"
+    else
+        export SKIP_IO_CAPTURE_TESTS=1
+        make test
+    fi
 fi
 
 make install

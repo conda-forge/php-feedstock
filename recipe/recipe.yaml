@@ -55,8 +55,8 @@ requirements:
 
 tests:
   - script:
-    - php --version
-    - php --help
+      - php --version
+      - php --help
 
 about:
   homepage: https://github.com/php/php-src

@@ -3,9 +3,8 @@ setlocal enabledelayedexpansion
 
 cd /d "%SRC_DIR%"
 
-rem Create phpsdk_version shim to satisfy PHP's SDK version check
-echo @echo PHP SDK 2.3.0 > "%SRC_DIR%\phpsdk_version.bat"
-set "PATH=%SRC_DIR%;%PATH%"
+rem Patch out the PHP SDK binary tools version check - we don't use the PHP SDK
+sed -i "s/if (BIN_TOOLS_SDK_VER_MAJOR < 2)/if (false)/" win32\build\confutils.js
 
 call buildconf.bat --force
 if errorlevel 1 exit /b 1
