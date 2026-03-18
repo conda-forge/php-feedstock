@@ -12,17 +12,24 @@ source:
 
 build:
   number: 0
-  skip: not unix
 
 requirements:
   build:
     - ${{ compiler('c') }}
-    - make
-    - autoconf
-    - bison
-    - libtool
-    - pkg-config
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib('c') }}
+    - if: unix
+      then:
+        - make
+        - autoconf
+        - libtool
+        - pkg-config
+
     - ${{ "util-linux" if linux }}
+    - if: win
+      then:
+        - m2-sed
+        - m2-filesystem
   host:
     - libiconv
     - libxml2-devel
@@ -38,11 +45,13 @@ requirements:
     - libpq
     - libsodium
     - libzip
-    - oniguruma
-    - readline
     - zlib
+    - if: unix
+      then:
+        - oniguruma
+        - readline
     - ${{ "gettext" if osx }}
-    - ${{ "zlib-ng-compat" if linux }}
+    - ${{ "zlib-ng" if linux }}
 
 tests:
   - script:

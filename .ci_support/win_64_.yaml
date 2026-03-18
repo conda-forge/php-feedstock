@@ -1,13 +1,9 @@
 bzip2:
 - '1'
 c_compiler:
-- gcc
-c_compiler_version:
-- '14'
+- vs2022
 c_stdlib:
-- sysroot
-c_stdlib_version:
-- '2.17'
+- vs
 channel_sources:
 - conda-forge
 channel_targets:
@@ -15,11 +11,7 @@ channel_targets:
 curl:
 - '8'
 cxx_compiler:
-- gxx
-cxx_compiler_version:
-- '14'
-docker_image:
-- quay.io/condaforge/linux-anvil-aarch64:alma9
+- vs2022
 gmp:
 - '6'
 icu:
@@ -38,16 +30,9 @@ openssl:
 - '3.5'
 pcre2:
 - '10.47'
-readline:
-- '8'
 sqlite:
 - '3'
 target_platform:
-- linux-aarch64
-zip_keys:
-- - c_compiler_version
-  - cxx_compiler_version
+- win-64
 zlib:
 - '1'
-zlib_ng:
-- '2.3'
