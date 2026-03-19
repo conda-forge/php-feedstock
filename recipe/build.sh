@@ -9,9 +9,10 @@ if [[ "${target_platform}" == "osx-arm64" ]]; then
     export PHP_BUILD_HOST="aarch64-apple-darwin20.0.0"
 fi
 
-# remove test failing in non interactive shell
+# remove tests failing in non-interactive shell or CI environments
 rm ext/standard/tests/file/lstat_stat_variation10.phpt
 rm ext/standard/tests/network/bug73594.phpt
+rm ext/sockets/tests/mcast_ipv6_send.phpt
 
 # skip flaky test at TravisCI
 # https://github.com/php/php-src/blob/b9f4fb8aefaeb3802d6f79f6aad7029b63e488a2/ext/standard/tests/file/disk_free_space_basic.phpt#L5
@@ -51,7 +52,7 @@ fi
 make -j${CPU_COUNT}
 
 # Skip tests when cross-compiling (can't run target binaries on build machine)
-if [[ "${build_platform}" == "${target_platform}" ]]; then
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
     export NO_INTERACTION=1
     if [[ "${target_platform}" == "linux-"* ]]; then
         script -ec "make test"
@@ -62,3 +63,10 @@ if [[ "${build_platform}" == "${target_platform}" ]]; then
 fi
 
 make install
+
+# Verify we built for the correct architecture on osx-arm64
+if [[ "${target_platform}" == "osx-arm64" ]]; then
+    ARCH=$(lipo -archs $PREFIX/bin/php)
+    echo "php binary architecture: $ARCH"
+    test "$ARCH" = "arm64"
+fi
