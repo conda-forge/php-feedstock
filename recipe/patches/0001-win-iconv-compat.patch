@@ -1,0 +1,11 @@
+diff --git a/ext/iconv/php_iconv.def b/ext/iconv/php_iconv.def
+index 1234567..0000000 100644
+--- a/ext/iconv/php_iconv.def
++++ b/ext/iconv/php_iconv.def
+@@ -1,6 +1 @@
+ EXPORTS
+-_libiconv_version
+-libiconv_close
+-libiconv
+-libiconv_open
+-libiconv_set_relocation_prefix
