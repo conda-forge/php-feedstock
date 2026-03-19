@@ -1,13 +1,12 @@
 context:
-  name: php
   version: "8.5.4"
 
 package:
-  name: ${{ name }}
+  name: php
   version: ${{ version }}
 
 source:
-  url: https://www.php.net/distributions/${{ name }}-${{ version }}.tar.gz
+  url: https://www.php.net/distributions/php-${{ version }}.tar.gz
   sha256: 4fef7f44eff3c18e329504cb0d3eb30b41cf54e2db05cb4ebe8b78fc37d38ce1
 
 build:
