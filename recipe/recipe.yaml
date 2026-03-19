@@ -24,12 +24,14 @@ requirements:
         - autoconf
         - libtool
         - pkg-config
-
-    - ${{ "util-linux" if linux }}
+        - bison
     - if: win
       then:
+        - m2-bison
         - m2-sed
         - m2-filesystem
+
+    - ${{ "util-linux" if linux }}
   host:
     - libiconv
     - libxml2-devel
