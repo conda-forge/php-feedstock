@@ -41,3 +41,13 @@ if errorlevel 1 exit /b 1
 
 nmake /nologo install
 if errorlevel 1 exit /b 1
+
+rem PHP installs to Library/ root, but conda expects executables in Library/bin/
+if not exist "%LIBRARY_BIN%" mkdir "%LIBRARY_BIN%"
+move "%LIBRARY_PREFIX%\php.exe" "%LIBRARY_BIN%\php.exe"
+move "%LIBRARY_PREFIX%\php-cgi.exe" "%LIBRARY_BIN%\php-cgi.exe"
+move "%LIBRARY_PREFIX%\php8ts.dll" "%LIBRARY_BIN%\php8ts.dll"
+
+rem Remove build tools that shouldn't be packaged
+del /q "%LIBRARY_PREFIX%\gen_ir_fold_hash.exe" 2>nul
+del /q "%LIBRARY_PREFIX%\minilua.exe" 2>nul
