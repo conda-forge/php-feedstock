@@ -22,6 +22,7 @@ call configure.bat ^
     --with-sodium ^
     --with-zip ^
     --with-zlib ^
+    --enable-pdo ^
     --with-pgsql ^
     --with-pdo-pgsql ^
     --with-sqlite3 ^
