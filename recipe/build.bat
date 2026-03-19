@@ -10,7 +10,6 @@ call buildconf.bat --force
 if errorlevel 1 exit /b 1
 
 call configure.bat ^
-    --prefix="%LIBRARY_PREFIX%" ^
     --with-prefix="%LIBRARY_PREFIX%" ^
     --with-php-build="%LIBRARY_PREFIX%" ^
     --with-openssl ^
@@ -20,8 +19,6 @@ call configure.bat ^
     --with-bz2 ^
     --with-gmp ^
     --with-sodium ^
-    --with-zip ^
-    --with-zlib ^
     --enable-pdo ^
     --with-pgsql ^
     --with-pdo-pgsql ^
