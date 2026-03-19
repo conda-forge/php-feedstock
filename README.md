@@ -13,8 +13,8 @@ Development: https://github.com/php/php-src
 
 Documentation: https://www.php.net/
 
-PHP is a popular general-purpose scripting language that is especially suited to web development.
-Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world.
+PHP is a popular general-purpose scripting language that is especially suited to web development. 
+Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world. 
 PHP is distributed under the PHP License v3.01.
 
 Current build status
@@ -22,7 +22,7 @@ Current build status
 
 
 <table>
-
+    
   <tr>
     <td>Azure</td>
     <td>
@@ -173,3 +173,4 @@ Feedstock Maintainers
 * [@fhoehle](https://github.com/fhoehle/)
 * [@timsnyder](https://github.com/timsnyder/)
 * [@wolfv](https://github.com/wolfv/)
+
