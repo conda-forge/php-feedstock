@@ -1,0 +1,80 @@
+context:
+  version: "8.5.4"
+
+package:
+  name: php
+  version: ${{ version }}
+
+source:
+  url: https://www.php.net/distributions/php-${{ version }}.tar.gz
+  sha256: 4fef7f44eff3c18e329504cb0d3eb30b41cf54e2db05cb4ebe8b78fc37d38ce1
+
+build:
+  number: 0
+  skip:
+    - win
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib('c') }}
+    - if: unix
+      then:
+        - make
+        - autoconf
+        - libtool
+        - pkg-config
+        - bison
+    - if: win
+      then:
+        - m2-bison
+        - m2-sed
+        - m2-filesystem
+
+    - ${{ "util-linux" if linux }}
+  host:
+    - libiconv
+    - libxml2-devel
+    - libxslt
+    - openssl
+    - re2c
+    - sqlite
+    - pcre2
+    - bzip2
+    - curl
+    - gmp
+    - icu
+    - libpq
+    - libsodium
+    - libzip
+    - zlib
+    - if: unix
+      then:
+        - oniguruma
+        - readline
+    - ${{ "gettext" if osx }}
+    - ${{ "zlib-ng" if linux }}
+
+tests:
+  - script:
+      - php --version
+      - php --help
+
+about:
+  homepage: https://github.com/php/php-src
+  license: PHP-3.01
+  license_file: LICENSE
+  summary: PHP is a popular general-purpose scripting language that is especially suited to web development.
+  description: |
+    PHP is a popular general-purpose scripting language that is especially suited to web development. 
+    Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world. 
+    PHP is distributed under the PHP License v3.01.
+  documentation: https://www.php.net/
+  repository: https://github.com/php/php-src
+
+extra:
+  recipe-maintainers:
+    - timsnyder
+    - fhoehle
+    - wolfv
