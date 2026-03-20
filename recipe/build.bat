@@ -17,10 +17,13 @@ sed -i "/ADD_DEF_FILE.*php_libxml2.def/d" ext\libxml\config.w32
 rem Guard xmlDllMain call - only needed for static libxml2
 sed -i "s/ifdef HAVE_LIBXML/ifdef LIBXML_STATIC_FOR_DLL/" win32\dllmain.c
 
-rem Fix xsl: add shared lib names and remove LIBXML_STATIC flag
-sed -i "s/libxslt_a.lib/libxslt_a.lib;xslt.lib;libxslt.lib/" ext\xsl\config.w32
-sed -i "s/libexslt_a.lib/libexslt_a.lib;exslt.lib;libexslt.lib/" ext\xsl\config.w32
+rem Fix xsl: use shared libs (static ones expect static libxml2 which we don't use)
+rem Also remove LIBXML_STATIC flag added by xsl config
+sed -i "s/libxslt_a.lib/libxslt.lib;xslt.lib/" ext\xsl\config.w32
+sed -i "s/libexslt_a.lib/libexslt.lib;exslt.lib/" ext\xsl\config.w32
 sed -i "s/\/D LIBXML_STATIC\"/\"/" ext\xsl\config.w32
+sed -i "s/\/D LIBXSLT_STATIC//" ext\xsl\config.w32
+sed -i "s/\/D LIBEXSLT_STATIC//" ext\xsl\config.w32
 
 call buildconf.bat --force
 if errorlevel 1 exit /b 1
