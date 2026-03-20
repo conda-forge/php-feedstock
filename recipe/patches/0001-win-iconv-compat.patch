@@ -1,7 +1,9 @@
-Remove GNU libiconv-specific symbols for compatibility with conda-forge's libiconv on Windows.
+Patch PHP's Windows build to work with conda-forge library names.
+
+conda-forge provides different .lib filenames than what the PHP SDK expects.
+Also removes GNU libiconv-specific symbols for compatibility.
 
 diff --git a/ext/iconv/config.w32 b/ext/iconv/config.w32
-index 1111111..2222222 100644
 --- a/ext/iconv/config.w32
 +++ b/ext/iconv/config.w32
 @@ -9,9 +9,7 @@ if (PHP_ICONV != "no") {
@@ -17,7 +19,6 @@ index 1111111..2222222 100644
  		if (!PHP_ICONV_SHARED) {
  			ADD_DEF_FILE("ext\\iconv\\php_iconv.def");
 diff --git a/ext/iconv/php_iconv.def b/ext/iconv/php_iconv.def
-index 3333333..4444444 100644
 --- a/ext/iconv/php_iconv.def
 +++ b/ext/iconv/php_iconv.def
 @@ -1,6 +1 @@
@@ -27,3 +28,73 @@ index 3333333..4444444 100644
 -libiconv
 -libiconv_open
 -libiconv_set_relocation_prefix
+diff --git a/ext/libxml/config.w32 b/ext/libxml/config.w32
+--- a/ext/libxml/config.w32
++++ b/ext/libxml/config.w32
+@@ -3,7 +3,7 @@
+ ARG_WITH("libxml", "LibXML support", "yes");
+
+ if (PHP_LIBXML == "yes") {
+-	if (CHECK_LIB("libxml2_a_dll.lib;libxml2_a.lib", "libxml") &&
++	if (CHECK_LIB("libxml2_a_dll.lib;libxml2_a.lib;libxml2.lib", "libxml") &&
+ 			((PHP_ICONV != "no" && !PHP_ICONV_SHARED) || CHECK_LIB("libiconv_a.lib;iconv_a.lib;libiconv.lib;iconv.lib", "libxml")) &&
+ 			CHECK_HEADER_ADD_INCLUDE("libxml/parser.h", "CFLAGS_LIBXML", PHP_PHP_BUILD + "\\include\\libxml2") &&
+ 			CHECK_HEADER_ADD_INCLUDE("libxml/tree.h", "CFLAGS_LIBXML", PHP_PHP_BUILD + "\\include\\libxml2")) {
+diff --git a/ext/gmp/config.w32 b/ext/gmp/config.w32
+--- a/ext/gmp/config.w32
++++ b/ext/gmp/config.w32
+@@ -3,7 +3,7 @@
+ ARG_WITH("gmp", "Include GNU MP support.", "no");
+
+ if (PHP_GMP != "no") {
+-	if (CHECK_LIB("mpir_a.lib", "gmp", PHP_GMP) &&
++	if (CHECK_LIB("mpir_a.lib;gmp.lib", "gmp", PHP_GMP) &&
+ 		CHECK_HEADER_ADD_INCLUDE("gmp.h", "CFLAGS_GMP", PHP_GMP +  ";" + PHP_PHP_BUILD + "\\include\\mpir")) {
+ 		EXTENSION("gmp", "gmp.c", null, "/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1");
+ 		PHP_INSTALL_HEADERS("ext/gmp", "php_gmp_int.h");
+diff --git a/ext/curl/config.w32 b/ext/curl/config.w32
+--- a/ext/curl/config.w32
++++ b/ext/curl/config.w32
+@@ -4,14 +4,11 @@
+
+ if (PHP_CURL != "no") {
+ 	var curl_location;
+-	if ((curl_location = CHECK_LIB("libcurl_a.lib;libcurl.lib", "curl", PHP_CURL)) &&
++	if ((curl_location = CHECK_LIB("libcurl_a.lib;libcurl.lib;curl.lib", "curl", PHP_CURL)) &&
+ 		CHECK_HEADER_ADD_INCLUDE("curl/easy.h", "CFLAGS_CURL") &&
+ 		SETUP_OPENSSL("curl", PHP_CURL) >= 2 &&
+ 		CHECK_LIB("winmm.lib", "curl", PHP_CURL) &&
+-		CHECK_LIB("wldap32.lib", "curl", PHP_CURL) &&
+-		SETUP_ZLIB_LIB("curl", PHP_CURL) &&
+-		(CHECK_LIB("normaliz.lib", "curl", PHP_CURL) &&
+-		 CHECK_LIB("libssh2.lib", "curl", PHP_CURL) &&
+-		 CHECK_LIB("nghttp2.lib", "curl", PHP_CURL))
++		CHECK_LIB("wldap32.lib", "curl", PHP_CURL)
+ 		) {
+ 		EXTENSION("curl", "interface.c multi.c share.c curl_file.c");
+ 		AC_DEFINE('HAVE_CURL', 1, "Define to 1 if the PHP extension 'curl' is available.");
+diff --git a/ext/zip/config.w32 b/ext/zip/config.w32
+--- a/ext/zip/config.w32
++++ b/ext/zip/config.w32
+@@ -5,8 +5,8 @@
+ if (PHP_ZIP != "no") {
+ 	if (CHECK_HEADER_ADD_INCLUDE("zip.h", "CFLAGS_ZIP", PHP_PHP_BUILD + "\\include;" + PHP_EXTRA_INCLUDES) &&
+ 		CHECK_HEADER_ADD_INCLUDE("zipconf.h", "CFLAGS_ZIP", PHP_PHP_BUILD + "\\lib\\libzip\\include;" + PHP_EXTRA_LIBS + "\\libzip\\include;" + PHP_ZIP) &&
+-		(PHP_ZIP_SHARED && CHECK_LIB("libzip.lib", "zip", PHP_ZIP) ||
+-		 CHECK_LIB("libzip_a.lib", "zip", PHP_ZIP) && CHECK_LIB("libbz2_a.lib", "zip", PHP_ZIP) && CHECK_LIB("zlib_a.lib", "zip", PHP_ZIP) && CHECK_LIB("liblzma_a.lib", "zip", PHP_ZIP))
++		(PHP_ZIP_SHARED && CHECK_LIB("libzip.lib;zip.lib", "zip", PHP_ZIP) ||
++		 CHECK_LIB("libzip_a.lib;zip.lib", "zip", PHP_ZIP))
+ 	) {
+ 		EXTENSION('zip', 'php_zip.c zip_stream.c');
+ 		ADD_EXTENSION_DEP('zip', 'pcre');
+diff --git a/win32/build/confutils.js b/win32/build/confutils.js
+--- a/win32/build/confutils.js
++++ b/win32/build/confutils.js
+@@ -3675,7 +3675,7 @@
+ function SETUP_SQLITE3(target, path_to_check, shared) {
+ 	var cflags_var = "CFLAGS_" + target.toUpperCase();
+-	var libs = (shared ? "libsqlite3.lib;libsqlite3_a.lib" : "libsqlite3_a.lib;libsqlite3.lib");
++	var libs = (shared ? "libsqlite3.lib;libsqlite3_a.lib;sqlite3.lib" : "libsqlite3_a.lib;libsqlite3.lib;sqlite3.lib");
+
+ 	return CHECK_LIB(libs, target, path_to_check) &&
+ 		CHECK_HEADER_ADD_INCLUDE("sqlite3.h", cflags_var) &&

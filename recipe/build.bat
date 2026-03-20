@@ -33,7 +33,8 @@ call configure.bat ^
     --enable-mbstring ^
     --enable-shmop ^
     --enable-soap ^
-    --enable-sockets
+    --enable-sockets ^
+    --with-zip
 if errorlevel 1 exit /b 1
 
 nmake /nologo
