@@ -17,6 +17,11 @@ sed -i "/ADD_DEF_FILE.*php_libxml2.def/d" ext\libxml\config.w32
 rem Guard xmlDllMain call - only needed for static libxml2
 sed -i "s/ifdef HAVE_LIBXML/ifdef LIBXML_STATIC_FOR_DLL/" win32\dllmain.c
 
+rem Remove LIBXML_STATIC from all extensions that set it (we use shared libxml2)
+for %%f in (ext\dom\config.w32 ext\xml\config.w32 ext\simplexml\config.w32 ext\soap\config.w32 ext\xmlreader\config.w32 ext\xmlwriter\config.w32) do (
+    sed -i "s/\/D LIBXML_STATIC//" %%f
+)
+
 rem Fix xsl: use shared libs (static ones expect static libxml2 which we don't use)
 rem Also remove LIBXML_STATIC flag added by xsl config
 sed -i "s/libxslt_a.lib/libxslt.lib;xslt.lib/" ext\xsl\config.w32
