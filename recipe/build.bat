@@ -6,6 +6,14 @@ cd /d "%SRC_DIR%"
 rem Patch out the PHP SDK binary tools version check - we don't use the PHP SDK
 sed -i "s/if (BIN_TOOLS_SDK_VER_MAJOR < 2)/if (false)/" win32\build\confutils.js
 
+rem Fix libxml2 for shared library from conda-forge:
+rem - Add libxml2.lib to search list
+rem - Remove LIBXML_STATIC flags (we link dynamically)
+rem - Remove DEF file that re-exports 1500+ libxml2 symbols
+sed -i "s/libxml2_a_dll.lib;libxml2_a.lib/libxml2_a_dll.lib;libxml2_a.lib;libxml2.lib/" ext\libxml\config.w32
+sed -i "s/LIBXML_STATIC \/D LIBXML_STATIC_FOR_DLL \/D //" ext\libxml\config.w32
+sed -i "/ADD_DEF_FILE.*php_libxml2.def/d" ext\libxml\config.w32
+
 call buildconf.bat --force
 if errorlevel 1 exit /b 1
 
