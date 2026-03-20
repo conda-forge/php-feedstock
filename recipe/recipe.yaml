@@ -44,7 +44,7 @@ requirements:
     - openssl
     - re2c
     - sqlite
-    - pcre2
+    - ${{ "pcre2" if unix }}
     - bzip2
     - curl
     - gmp
