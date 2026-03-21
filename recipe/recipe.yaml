@@ -8,11 +8,13 @@ package:
 source:
   url: https://www.php.net/distributions/php-${{ version }}.tar.gz
   sha256: 4fef7f44eff3c18e329504cb0d3eb30b41cf54e2db05cb4ebe8b78fc37d38ce1
+  patches:
+    - if: win
+      then:
+        - patches/0001-win-iconv-compat.patch
 
 build:
   number: 0
-  skip:
-    - win
 
 requirements:
   build:
@@ -40,7 +42,7 @@ requirements:
     - openssl
     - re2c
     - sqlite
-    - pcre2
+    - ${{ "pcre2" if unix }}
     - bzip2
     - curl
     - gmp
