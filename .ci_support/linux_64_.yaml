@@ -23,7 +23,7 @@ docker_image:
 gmp:
 - '6'
 icu:
-- '75'
+- '78'
 libiconv:
 - '1'
 libpq:
