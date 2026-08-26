@@ -1,5 +1,5 @@
 context:
-  version: "8.5.9"
+  version: "8.5.10"
 
 package:
   name: php
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://www.php.net/distributions/php-${{ version }}.tar.gz
-  sha256: d735459c2cbaeb0673d416c33d372d9ff261d562f6b29da48f3e6aeaeca083af
+  sha256: f5c0ac99b85b3d677de475c2e4f509f9b4f54663f3ee5a84d6d9481a521d4100
   patches:
     - if: win
       then:
