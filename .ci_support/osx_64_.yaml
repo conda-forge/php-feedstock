@@ -39,7 +39,7 @@ macos_machine:
 openssl:
 - '3.5'
 pcre2:
-- '10.47'
+- '10.49'
 readline:
 - '8'
 sqlite:
