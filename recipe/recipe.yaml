@@ -1,5 +1,5 @@
 context:
-  version: "8.5.12"
+  version: "8.6.0"
 
 package:
   name: php
@@ -12,10 +12,6 @@ source:
     - if: win
       then:
         - patches/0001-win-iconv-compat.patch
-    # The FTP test server's self-signed cert expired on 2026-07-23, breaking the
-    # ftps:// stream tests. Backport of upstream php/php-src#22873; drop once a
-    # release containing it is out.
-    - patches/0002-regenerate-expired-ftp-test-cert.patch
 
 build:
   number: 0
