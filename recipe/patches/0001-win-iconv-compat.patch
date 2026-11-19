@@ -21,7 +21,7 @@ This patch is machine-generated (git diff); regenerate it rather than editing
 hunk headers by hand.
 
 diff --git a/ext/curl/config.w32 b/ext/curl/config.w32
-index 4f8e3448..370c1587 100644
+index 567699f..cb6130b 100644
 --- a/ext/curl/config.w32
 +++ b/ext/curl/config.w32
 @@ -4,15 +4,11 @@ ARG_WITH("curl", "cURL support", "no");
@@ -30,7 +30,7 @@ index 4f8e3448..370c1587 100644
  	var curl_location;
 -	if ((curl_location = CHECK_LIB("libcurl_a.lib;libcurl.lib", "curl", PHP_CURL)) &&
 +	if ((curl_location = CHECK_LIB("libcurl_a.lib;libcurl.lib;curl.lib", "curl", PHP_CURL)) &&
- 		CHECK_HEADER_ADD_INCLUDE("curl/easy.h", "CFLAGS_CURL") &&
+ 		CHECK_HEADER("curl/easy.h", "CFLAGS_CURL") &&
  		SETUP_OPENSSL("curl", PHP_CURL) >= 2 &&
  		CHECK_LIB("winmm.lib", "curl", PHP_CURL) &&
 -		CHECK_LIB("wldap32.lib", "curl", PHP_CURL) &&
@@ -40,10 +40,10 @@ index 4f8e3448..370c1587 100644
 -		 CHECK_LIB("nghttp2.lib", "curl", PHP_CURL))
 +		CHECK_LIB("wldap32.lib", "curl", PHP_CURL)
  		) {
- 		if (!(CHECK_HEADER_ADD_INCLUDE("brotli/decode.h", "CFLAGS_CURL") &&
+ 		if (!(CHECK_HEADER("brotli/decode.h", "CFLAGS_CURL") &&
  			CHECK_LIB("brotlidec.lib;brotlidec-static.lib", "curl", PHP_CURL) &&
 diff --git a/ext/gmp/config.w32 b/ext/gmp/config.w32
-index 2bb4aa63..afec8431 100644
+index fc05244..740f301 100644
 --- a/ext/gmp/config.w32
 +++ b/ext/gmp/config.w32
 @@ -3,7 +3,7 @@
@@ -52,11 +52,11 @@ index 2bb4aa63..afec8431 100644
  if (PHP_GMP != "no") {
 -	if (CHECK_LIB("mpir_a.lib", "gmp", PHP_GMP) &&
 +	if (CHECK_LIB("mpir_a.lib;gmp.lib", "gmp", PHP_GMP) &&
- 		CHECK_HEADER_ADD_INCLUDE("gmp.h", "CFLAGS_GMP", PHP_GMP +  ";" + PHP_PHP_BUILD + "\\include\\mpir")) {
- 		EXTENSION("gmp", "gmp.c", null, "/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1");
- 		PHP_INSTALL_HEADERS("ext/gmp", "php_gmp_int.h");
+ 		CHECK_HEADER("gmp.h", "CFLAGS_GMP", PHP_GMP +  ";" + PHP_PHP_BUILD + "\\include\\mpir")) {
+ 		if (GREP_HEADER("gmp.h", "mpz_powm_sec", PHP_GMP +  ";" + PHP_PHP_BUILD + "\\include\\mpir")) {
+ 			AC_DEFINE('HAVE___GMPZ_POWM_SEC', 1, "Define to 1 if GMP has the 'mpz_powm_sec' function.");
 diff --git a/ext/iconv/config.w32 b/ext/iconv/config.w32
-index d99c53fb..930fdf9a 100644
+index b8fe680..d7ca413 100644
 --- a/ext/iconv/config.w32
 +++ b/ext/iconv/config.w32
 @@ -10,9 +10,7 @@ if (PHP_ICONV != "no") {
@@ -71,7 +71,7 @@ index d99c53fb..930fdf9a 100644
  		if (!PHP_ICONV_SHARED) {
  			ADD_DEF_FILE("ext\\iconv\\php_iconv.def");
 diff --git a/ext/iconv/php_iconv.def b/ext/iconv/php_iconv.def
-index 2f77aa4c..02ec975f 100644
+index 2f77aa4..02ec975 100644
 --- a/ext/iconv/php_iconv.def
 +++ b/ext/iconv/php_iconv.def
 @@ -1,6 +1,2 @@
@@ -83,25 +83,25 @@ index 2f77aa4c..02ec975f 100644
 -libiconv_set_relocation_prefix
 +; conda-forge: libiconv symbols are intentionally not re-exported here.
 diff --git a/ext/zip/config.w32 b/ext/zip/config.w32
-index c0226f89..65dee640 100644
+index 8b8c7ed..ec9a161 100644
 --- a/ext/zip/config.w32
 +++ b/ext/zip/config.w32
-@@ -5,8 +5,8 @@ ARG_ENABLE("zip", "ZIP support", "yes,shared");
- if (PHP_ZIP != "no") {
- 	if (CHECK_HEADER_ADD_INCLUDE("zip.h", "CFLAGS_ZIP", PHP_PHP_BUILD + "\\include;" + PHP_EXTRA_INCLUDES) &&
- 		CHECK_HEADER_ADD_INCLUDE("zipconf.h", "CFLAGS_ZIP", PHP_PHP_BUILD + "\\lib\\libzip\\include;" + PHP_EXTRA_LIBS + "\\libzip\\include;" + PHP_ZIP) &&
+@@ -6,8 +6,8 @@ if (PHP_ZIP != "no") {
+ 	var zipconf_dir;
+ 	if (CHECK_HEADER("zip.h", "CFLAGS_ZIP", PHP_PHP_BUILD + "\\include;" + PHP_EXTRA_INCLUDES) &&
+ 		(zipconf_dir = CHECK_HEADER("zipconf.h", "CFLAGS_ZIP", PHP_PHP_BUILD + "\\lib\\libzip\\include;" + PHP_EXTRA_LIBS + "\\libzip\\include;" + PHP_ZIP)) &&
 -		(PHP_ZIP_SHARED && CHECK_LIB("libzip.lib", "zip", PHP_ZIP) ||
--		 CHECK_LIB("libzip_a.lib", "zip", PHP_ZIP) && CHECK_LIB("libbz2_a.lib", "zip", PHP_ZIP) && CHECK_LIB("zlib_a.lib", "zip", PHP_ZIP) && CHECK_LIB("liblzma_a.lib", "zip", PHP_ZIP))
+-		 CHECK_LIB("libzip_a.lib", "zip", PHP_ZIP) && CHECK_LIB("libbz2_a.lib", "zip", PHP_ZIP) && CHECK_LIB("zlib_a.lib;zs.lib", "zip", PHP_ZIP) && CHECK_LIB("liblzma_a.lib", "zip", PHP_ZIP))
 +		(PHP_ZIP_SHARED && CHECK_LIB("libzip.lib;zip.lib", "zip", PHP_ZIP) ||
 +		 CHECK_LIB("libzip_a.lib;zip.lib", "zip", PHP_ZIP))
  	) {
- 		EXTENSION('zip', 'php_zip.c zip_stream.c');
- 		ADD_EXTENSION_DEP('zip', 'pcre');
+ 		if (zipconf_dir === true) {
+ 			zipconf_dir = search_paths("zipconf.h", WshShell.Environment("Process").Item("INCLUDE"), null);
 diff --git a/win32/build/confutils.js b/win32/build/confutils.js
-index cea1368b..2dd655b6 100644
+index e3dbe97..595ccfc 100644
 --- a/win32/build/confutils.js
 +++ b/win32/build/confutils.js
-@@ -3675,7 +3675,7 @@ function SETUP_OPENSSL(target, path_to_check, common_name, use_env, add_dir_part
+@@ -3753,7 +3753,7 @@ function SETUP_OPENSSL(target, path_to_check, common_name, use_env, add_dir_part
  
  function SETUP_SQLITE3(target, path_to_check, shared) {
  	var cflags_var = "CFLAGS_" + target.toUpperCase();
@@ -109,4 +109,4 @@ index cea1368b..2dd655b6 100644
 +	var libs = (shared ? "libsqlite3.lib;libsqlite3_a.lib;sqlite3.lib" : "libsqlite3_a.lib;libsqlite3.lib;sqlite3.lib");
  
  	return CHECK_LIB(libs, target, path_to_check) &&
- 		CHECK_HEADER_ADD_INCLUDE("sqlite3.h", cflags_var) &&
+ 		CHECK_HEADER("sqlite3.h", cflags_var) &&

@@ -1,7 +1,6 @@
 bot:
   abi_migration_branches:
-  - 7.4.x
-  - 8.5.4
+  - 8.5.x
 conda_forge_output_validation: true
 github:
   branch_name: main
