@@ -4,7 +4,7 @@ bot:
   - 8.5.4
 conda_forge_output_validation: true
 github:
-  branch_name: main
+  branch_name: 8.5.x
   tooling_branch_name: main
 conda_build_tool: rattler-build
 provider:
