@@ -21,7 +21,7 @@ This patch is machine-generated (git diff); regenerate it rather than editing
 hunk headers by hand.
 
 diff --git a/ext/curl/config.w32 b/ext/curl/config.w32
-index 4f8e3448..370c1587 100644
+index 4f8e344..370c158 100644
 --- a/ext/curl/config.w32
 +++ b/ext/curl/config.w32
 @@ -4,15 +4,11 @@ ARG_WITH("curl", "cURL support", "no");
@@ -43,7 +43,7 @@ index 4f8e3448..370c1587 100644
  		if (!(CHECK_HEADER_ADD_INCLUDE("brotli/decode.h", "CFLAGS_CURL") &&
  			CHECK_LIB("brotlidec.lib;brotlidec-static.lib", "curl", PHP_CURL) &&
 diff --git a/ext/gmp/config.w32 b/ext/gmp/config.w32
-index 2bb4aa63..afec8431 100644
+index 2bb4aa6..afec843 100644
 --- a/ext/gmp/config.w32
 +++ b/ext/gmp/config.w32
 @@ -3,7 +3,7 @@
@@ -56,7 +56,7 @@ index 2bb4aa63..afec8431 100644
  		EXTENSION("gmp", "gmp.c", null, "/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1");
  		PHP_INSTALL_HEADERS("ext/gmp", "php_gmp_int.h");
 diff --git a/ext/iconv/config.w32 b/ext/iconv/config.w32
-index d99c53fb..930fdf9a 100644
+index d99c53f..930fdf9 100644
 --- a/ext/iconv/config.w32
 +++ b/ext/iconv/config.w32
 @@ -10,9 +10,7 @@ if (PHP_ICONV != "no") {
@@ -71,7 +71,7 @@ index d99c53fb..930fdf9a 100644
  		if (!PHP_ICONV_SHARED) {
  			ADD_DEF_FILE("ext\\iconv\\php_iconv.def");
 diff --git a/ext/iconv/php_iconv.def b/ext/iconv/php_iconv.def
-index 2f77aa4c..02ec975f 100644
+index 2f77aa4..02ec975 100644
 --- a/ext/iconv/php_iconv.def
 +++ b/ext/iconv/php_iconv.def
 @@ -1,6 +1,2 @@
@@ -83,22 +83,22 @@ index 2f77aa4c..02ec975f 100644
 -libiconv_set_relocation_prefix
 +; conda-forge: libiconv symbols are intentionally not re-exported here.
 diff --git a/ext/zip/config.w32 b/ext/zip/config.w32
-index c0226f89..65dee640 100644
+index b8e12b5..c21eb5a 100644
 --- a/ext/zip/config.w32
 +++ b/ext/zip/config.w32
-@@ -5,8 +5,8 @@ ARG_ENABLE("zip", "ZIP support", "yes,shared");
- if (PHP_ZIP != "no") {
+@@ -6,8 +6,8 @@ if (PHP_ZIP != "no") {
+ 	var zipconf_dir;
  	if (CHECK_HEADER_ADD_INCLUDE("zip.h", "CFLAGS_ZIP", PHP_PHP_BUILD + "\\include;" + PHP_EXTRA_INCLUDES) &&
- 		CHECK_HEADER_ADD_INCLUDE("zipconf.h", "CFLAGS_ZIP", PHP_PHP_BUILD + "\\lib\\libzip\\include;" + PHP_EXTRA_LIBS + "\\libzip\\include;" + PHP_ZIP) &&
+ 		(zipconf_dir = CHECK_HEADER_ADD_INCLUDE("zipconf.h", "CFLAGS_ZIP", PHP_PHP_BUILD + "\\lib\\libzip\\include;" + PHP_EXTRA_LIBS + "\\libzip\\include;" + PHP_ZIP)) &&
 -		(PHP_ZIP_SHARED && CHECK_LIB("libzip.lib", "zip", PHP_ZIP) ||
--		 CHECK_LIB("libzip_a.lib", "zip", PHP_ZIP) && CHECK_LIB("libbz2_a.lib", "zip", PHP_ZIP) && CHECK_LIB("zlib_a.lib", "zip", PHP_ZIP) && CHECK_LIB("liblzma_a.lib", "zip", PHP_ZIP))
+-		 CHECK_LIB("libzip_a.lib", "zip", PHP_ZIP) && CHECK_LIB("libbz2_a.lib", "zip", PHP_ZIP) && CHECK_LIB("zlib_a.lib;zs.lib", "zip", PHP_ZIP) && CHECK_LIB("liblzma_a.lib", "zip", PHP_ZIP))
 +		(PHP_ZIP_SHARED && CHECK_LIB("libzip.lib;zip.lib", "zip", PHP_ZIP) ||
 +		 CHECK_LIB("libzip_a.lib;zip.lib", "zip", PHP_ZIP))
  	) {
- 		EXTENSION('zip', 'php_zip.c zip_stream.c');
- 		ADD_EXTENSION_DEP('zip', 'pcre');
+ 		if (zipconf_dir === true) {
+ 			zipconf_dir = search_paths("zipconf.h", WshShell.Environment("Process").Item("INCLUDE"), null);
 diff --git a/win32/build/confutils.js b/win32/build/confutils.js
-index cea1368b..2dd655b6 100644
+index 091037f..5a93802 100644
 --- a/win32/build/confutils.js
 +++ b/win32/build/confutils.js
 @@ -3675,7 +3675,7 @@ function SETUP_OPENSSL(target, path_to_check, common_name, use_env, add_dir_part
