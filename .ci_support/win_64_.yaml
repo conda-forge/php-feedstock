@@ -23,7 +23,7 @@ icu:
 libiconv:
 - '1'
 libpq:
-- '18'
+- '19'
 libsodium:
 - 1.0.22
 libxml2_devel:
